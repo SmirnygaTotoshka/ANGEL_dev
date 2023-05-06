@@ -91,3 +91,5 @@ for (i in folds) {
   vroom_write(total.train[-i,], paste0("HLA/data/train/test_HLA_",k,".csv"),delim = ";")
   k = k + 1
 }
+
+print(paste("Total HLA alleles in train", length(unique(total.train$activity))))
