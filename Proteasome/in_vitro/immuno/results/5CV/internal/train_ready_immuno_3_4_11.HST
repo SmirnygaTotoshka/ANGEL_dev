@@ -1,0 +1,47 @@
+  SAR Base is saved 07.05.2023 7:15:27
+
+  SAR Base models/train_ready_immuno_3_4_11.MSAR training.
+11	 Level of MNA Descriptors 
+876	 Substances 
+257271	 Descriptors 
+2	 Activity Types 
+0	 Selected Activity Types 
+0,0000	 Average IAP
+
+  Begin        :  07.05.2023 7:15:27
+
+ No	Training	 Number	 IAP	 Activity Type
+  1	   Ok	    289	 0,6232	1
+  2	   Ok	    592	 0,6134	0
+
+  End          :  07.05.2023 7:15:27
+  Training SAR Base time: 199:15:27.018.
+
+2	 Selected Activity Types 
+0,6183	 Average IAP
+
+  SAR Base is saved 07.05.2023 7:17:04
+
+  SAR Base models/train_ready_immuno_3_4_11.MSAR validation.
+11	 Level of MNA Descriptors 
+876	 Substances 
+257271	 Descriptors 
+2	 Activity Types 
+2	 Selected Activity Types 
+0,6183	 Average IAP
+
+  Begin        :  07.05.2023 7:17:04
+
+  No	 Check	 Number	 IAP	 20-Fold	 Activity Type
+  1	 Ok    	 289	 0,6232	 0,6130	 1
+  2	 Ok    	 592	 0,6134	 0,6027	 0
+
+  End          :  07.05.2023 7:17:06
+  Validation SAR Base time: 199:17:04.803.
+
+  2	 Selected Activity Types 
+  2	 Validated Activity Types 
+  2	 Successfully Validated Activity Types 
+  0,6183	 Average IAP
+  0,6079	 20-Fold Average IAP
+

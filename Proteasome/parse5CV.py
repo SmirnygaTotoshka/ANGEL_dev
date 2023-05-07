@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 '''
@@ -103,6 +103,7 @@ else:
             tbl = pd.read_csv(f, sep=";", header=header,decimal=",")
             union = pd.concat([union, tbl])
         union = union.drop(columns=columns_to_drop)
+        union = union.dropna()
         union = union.rename(columns={union.columns[0]: "activity"})
         auc_roc = roc_auc_score(union["activity"], union["1"])
         ap = average_precision_score(union["activity"], union["1"])

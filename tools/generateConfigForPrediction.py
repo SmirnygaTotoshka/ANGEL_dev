@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Генерирует конфиг для консольной версии PASS для предсказания (OLMPASS2CSV.exe)
 # Example:

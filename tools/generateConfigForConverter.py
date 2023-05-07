@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Генерирует конфиг для конвертера SeqToSDF.py https://github.com/SmirnygaTotoshka/SequenceToSDF
 # Example

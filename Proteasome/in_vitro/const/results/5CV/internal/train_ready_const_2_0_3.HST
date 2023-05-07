@@ -1,0 +1,94 @@
+  SAR Base is saved 07.05.2023 4:14:05
+
+  SAR Base models/train_ready_const_2_0_3.MSAR training.
+3	 Level of MNA Descriptors 
+2185	 Substances 
+718	 Descriptors 
+2	 Activity Types 
+0	 Selected Activity Types 
+0,0000	 Average IAP
+
+  Begin        :  07.05.2023 4:14:05
+
+ No	Training	 Number	 IAP	 Activity Type
+  1	   Ok	    964	 0,6350	1
+  2	   Ok	    1254	 0,6298	0
+
+  End          :  07.05.2023 4:14:05
+  Training SAR Base time: 196:14:05.227.
+
+2	 Selected Activity Types 
+0,6324	 Average IAP
+
+  SAR Base is saved 07.05.2023 4:14:06
+
+  SAR Base models/train_ready_const_2_0_3.MSAR validation.
+3	 Level of MNA Descriptors 
+2185	 Substances 
+718	 Descriptors 
+2	 Activity Types 
+2	 Selected Activity Types 
+0,6324	 Average IAP
+
+  Begin        :  07.05.2023 4:14:06
+
+  No	 Check	 Number	 IAP	 20-Fold	 Activity Type
+  1	 Ok    	 964	 0,6350	 0,6355	 1
+  2	 Ok    	 1254	 0,6298	 0,6307	 0
+
+  End          :  07.05.2023 4:14:08
+  Validation SAR Base time: 196:14:06.514.
+
+  2	 Selected Activity Types 
+  2	 Validated Activity Types 
+  2	 Successfully Validated Activity Types 
+  0,6324	 Average IAP
+  0,6331	 20-Fold Average IAP
+
+  SAR Base is saved 07.05.2023 4:18:58
+
+  SAR Base models/train_ready_const_2_0_3.MSAR training.
+3	 Level of MNA Descriptors 
+2185	 Substances 
+718	 Descriptors 
+2	 Activity Types 
+0	 Selected Activity Types 
+0,0000	 Average IAP
+
+  Begin        :  07.05.2023 4:18:58
+
+ No	Training	 Number	 IAP	 Activity Type
+  1	   Ok	    964	 0,6350	1
+  2	   Ok	    1254	 0,6298	0
+
+  End          :  07.05.2023 4:18:59
+  Training SAR Base time: 196:18:58.815.
+
+2	 Selected Activity Types 
+0,6324	 Average IAP
+
+  SAR Base is saved 07.05.2023 4:18:59
+
+  SAR Base models/train_ready_const_2_0_3.MSAR validation.
+3	 Level of MNA Descriptors 
+2185	 Substances 
+718	 Descriptors 
+2	 Activity Types 
+2	 Selected Activity Types 
+0,6324	 Average IAP
+
+  Begin        :  07.05.2023 4:18:59
+
+  No	 Check	 Number	 IAP	 20-Fold	 Activity Type
+  1	 Ok    	 964	 0,6350	 0,6331	 1
+  2	 Ok    	 1254	 0,6298	 0,6289	 0
+
+  End          :  07.05.2023 4:19:01
+  Validation SAR Base time: 196:18:59.981.
+
+  2	 Selected Activity Types 
+  2	 Validated Activity Types 
+  2	 Successfully Validated Activity Types 
+  0,6324	 Average IAP
+  0,6310	 20-Fold Average IAP
+
