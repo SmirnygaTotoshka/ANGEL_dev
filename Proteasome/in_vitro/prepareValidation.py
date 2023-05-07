@@ -3,7 +3,7 @@
 
 import pandas as pd
 import argparse
-from tools_invitro import generateSamples, isCorrectSequence
+from toolsInvitro import generateSamples, isCorrectSequence
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-t","--type", choices=["I","C"], help="Type of proteasome: C - 20S constitutive, I - 20S immunoproteasome",default="C")
@@ -28,6 +28,9 @@ else:
 '''
 
 total_train = pd.read_csv(train_path, sep = ";")
+ready_total_train = generateSamples(total_train, window_radius=args.window)
+ready_total_train.to_csv(f"{validation_path}/ready_train_{name}_{args.window}.csv", index = False, sep = ";")
+
 
 winter_dataset = pd.read_csv("Proteasome/data/raw/pepsickle_winter_et_al_cleavage_fragments.csv")
 winter_dataset_filtered = winter_dataset.query("Organism == 'human'")

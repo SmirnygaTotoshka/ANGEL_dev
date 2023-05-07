@@ -3,7 +3,7 @@
 import pandas as pd
 from sklearn.model_selection import GroupKFold
 import argparse
-from tools_invitro import generateSamples, isCorrectSequence
+from toolsInvitro import generateSamples, isCorrectSequence
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-t","--type", choices=["I","C"], help="Type of proteasome: C - 20S constitutive, I - 20S immunoproteasome",default="C")
@@ -75,7 +75,7 @@ for i, (train_index, test_index) in enumerate(fiveCV.split(X = train_invitro["fr
     print(f"Train {len(train_invitro.loc[train_index, 'substrate'].unique())}")
     ready_train_fold = generateSamples(train_fold, window_radius=args.window)
     print(f"Test {len(train_invitro.loc[test_index,'substrate'].unique())}")
-    ready_test_fold = generateSamples(train_fold, window_radius=args.window)
+    ready_test_fold = generateSamples(test_fold, window_radius=args.window)
 
     train_fold.to_csv(f"{path}/train_{name}_{args.window}_{i}.csv", index=False, sep=";")
     test_fold.to_csv(f"{path}/test_{name}_{args.window}_{i}.csv", index=False, sep=";")
