@@ -181,3 +181,7 @@ cython_debug/
 /Proteasome/in_vitro/immuno/results/5CV/internal/
 /HLA/data/results/5CV/internal/
 /entrez_key.txt
+/TAP/data/train/
+/Proteasome/in_vitro/immuno/train/
+/Proteasome/in_vitro/const/train/
+/HLA/data/train/
