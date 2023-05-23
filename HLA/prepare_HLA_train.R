@@ -79,7 +79,7 @@ total.train = bind_rows(iedb.bind, flurry.bind, iedb.elution, flurry.elution) %>
   distinct(epitope, allele) %>% 
   rename("activity"="allele")
 
-vroom_write(total.train, "HLA/data/train/total_train.csv", delim = ";")
+vroom_write(total.train, "data/train/total_train_HLA.csv", delim = ";")
 
 set.seed(9)
 

@@ -15,7 +15,7 @@ import time
 from datetime import datetime
 import os
 
-PROJECT_DATA_PATH = "/home/stotoshka/Documents/Epitops/PredictionEpitopes/data/source"
+PROJECT_DATA_PATH = "/home/stotoshka/Documents/ANGEL_dev/TAP/data/raw"
 MHCBN_TAPBINDER_SEQ_URL = "https://webs.iiitd.edu.in/cgibin/mhcbn/tapbinder_download.pl"
 MHCBN_DISPLAY_URL = "https://webs.iiitd.edu.in/cgibin/mhcbn/display.pl"
 DISPLAY_PARAMS = {"field":"sequence",\

@@ -30,9 +30,11 @@ else:
 total_train = pd.read_csv(train_path, sep = ";")
 ready_total_train = generateSamples(total_train, window_radius=args.window)
 ready_total_train.to_csv(f"{validation_path}/ready_train_{name}_{args.window}.csv", index = False, sep = ";")
+print(f"Num train substrate = {len(total_train.substrate.unique())}")
 
 
 winter_dataset = pd.read_csv("Proteasome/data/raw/pepsickle_winter_et_al_cleavage_fragments.csv")
+winter_dataset["exclusions"] = winter_dataset["exclusions"].astype(str)
 winter_dataset_filtered = winter_dataset.query("Organism == 'human'")
 winter_dataset_filtered = winter_dataset_filtered.query("Proteasome != @type")
 winter_dataset_filtered = winter_dataset_filtered.query("Subunit == '20S'")
@@ -59,17 +61,21 @@ for i in calis_data_filtered.index:
     previous_start = 0
     for j in calis_data_filtered.loc[i,"cleavage_sites"]:
         site = calis_data_filtered.loc[i,"cleavage_sites"].find("|",previous_start)
-        peptide = calis_data_filtered.loc[i,"cleavage_sites"][0:site].replace("\\|","")
+        if site == -1:
+            break
+        peptide = calis_data_filtered.loc[i,"cleavage_sites"][0:site].replace("|","")
+        # print(peptide,calis_data_filtered.loc[i,"sequence"])
         previous_start = site + 1
         calis_result.loc[k] = [peptide, calis_data_filtered.loc[i,"sequence"],""]
         k += 1
 
 validation_invitro = pd.concat([winter_dataset_filtered, calis_result], ignore_index = True)
-validation_invitro = validation_invitro.drop_duplicates(subset= ['fragment', 'substrate'])
+validation_invitro["peptide"] = validation_invitro["fragment"]
+#validation_invitro = validation_invitro.drop_duplicates(subset= ['fragment', 'substrate'])
 validation_invitro.reset_index(inplace=True,drop = True)
 
 validation_invitro.to_csv(f"{validation_path}/total_validation_{name}.csv", index = False, sep = ";")
-print(f"Num substrate = {len(validation_invitro.substrate.unique())}")
+print(f"Num validation substrate = {len(validation_invitro.substrate.unique())}")
 
 ready_validation = generateSamples(validation_invitro, excluded="exclusions", window_radius=args.window)
-validation_invitro.to_csv(f"{validation_path}/ready_validation_{name}_{args.window}.csv", index = False, sep = ";")
+ready_validation.to_csv(f"{validation_path}/ready_validation_{name}_{args.window}.csv", index = False, sep = ";")

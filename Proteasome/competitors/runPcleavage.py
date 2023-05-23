@@ -39,7 +39,6 @@ invitro_button_xpath = "/html/body/table/tbody/tr[2]/td/table/tbody/tr/td[2]/tab
 invivo_button_xpath = "/html/body/table/tbody/tr[2]/td/table/tbody/tr/td[2]/table/tbody/tr[4]/td/table/tbody/tr/td/form/p[3]/table/tbody/tr[2]/td[1]/input"
 input_field_xpath = "/html/body/table/tbody/tr[2]/td/table/tbody/tr/td[2]/table/tbody/tr[4]/td/table/tbody/tr/td/form/p[1]/textarea"
 submit_xpath = "/html/body/table/tbody/tr[2]/td/table/tbody/tr/td[2]/table/tbody/tr[4]/td/table/tbody/tr/td/form/input[4]"
-
 driver = webdriver.Chrome(ChromeDriverManager().install())
 with open(args.input, "r") as file:
     res_pcleavage = pd.DataFrame()

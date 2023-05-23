@@ -18,10 +18,14 @@ from sklearn.metrics import roc_auc_score,average_precision_score
 import re
 import os
 
-def group_by_folds(files):
+def group_by_folds(files,mode):
     groups = {}
     for f in files:
-        desc = os.path.splitext(os.path.basename(f))[0].split("-")[1] #Возьмем правую часть имени файла, за имя модели
+        if mode == "console":
+            desc = os.path.splitext(os.path.basename(f))[0].split("-")[1]  # Возьмем правую часть имени файла, за имя модели
+        else:
+            s = os.path.splitext(os.path.basename(f))[0]
+            desc = s[s.find("(") + 1:s.find(")")]
         components_desc = re.split("_",desc)
         key = "_".join([components_desc[2],components_desc[3],components_desc[5]])#model_window_level
         if key not in groups.keys():
@@ -91,7 +95,7 @@ else:
         header = 4
 
     results = glob(glob_path)
-    models = group_by_folds(results)
+    models = group_by_folds(results,args.program)
     result = pd.DataFrame(columns=["model", "level", "auc_roc", "ap"])
     i = 0
     for k, folds in models.items():

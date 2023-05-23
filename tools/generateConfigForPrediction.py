@@ -14,7 +14,7 @@ if __name__ == '__main__':
     parser.add_argument("-m","--model", help="Relative path to SAR Base. With extension (.MSAR).",default="tmp",type= str)
     parser.add_argument("-s","--sdf", help="Relative path to test data in SDF format. With extension.")
     parser.add_argument("-a","--activity", help="Column name contains activity.", type = str) #default - создавать заряженные последовательности
-    parser.add_argument("-p","--pred_output", help="Relative path to prediction directory(!). Output name is <test_filename> <model_filename>.csv", default="tmp")
+    parser.add_argument("-p","--pred_output", help="Relative path to prediction directory(!). Output name is <test_filename> <model_filename>.csv", default="")
     args = parser.parse_args()
 
     with open(args.output, "w", encoding="cp1251") as val_cfg:
