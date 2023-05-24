@@ -13,7 +13,7 @@ import numpy as np
 import pandas as pd
 import argparse
 from glob import glob
-from sklearn.metrics import roc_auc_score,average_precision_score
+from sklearn.metrics import *
 import re
 import os
 
@@ -94,7 +94,7 @@ else:
 
     results = glob(glob_path)
     models = group_by_folds(results,args.program)
-    result = pd.DataFrame(columns=["model", "level","activity", "auc_roc", "ap"])
+    result = pd.DataFrame(columns=["model", "level","activity", "auc_roc","J", "Sens","Spec","Acc","BA","ap", "MCC"])
     i = 0
     for k, folds in models.items():
         comps = re.split("_",k)
@@ -118,7 +118,17 @@ else:
             try:
                 auc_roc = roc_auc_score(true, pred)
                 ap = average_precision_score(true, pred)
-                result.loc[i] = [model_name, level,a, auc_roc, ap]
+                fpr, tpr, thres = roc_curve(true, pred)
+                J = tpr - fpr
+                Jopt = thres[np.argmax(J)]
+                pred = np.where(pred < Jopt, 0, 1)
+                tn, fp, fn, tp = confusion_matrix(true, pred).ravel()
+                sens = tp / (tp + fn)
+                spec = tn / (tn + fp)
+                acc = accuracy_score(true, pred)
+                ba = balanced_accuracy_score(true, pred)
+                mcc = matthews_corrcoef(true, pred)
+                result.loc[i] = [model_name, level,a, auc_roc, Jopt, sens, spec, acc, ba, ap, mcc]
                 i += 1
             except ValueError as ve:
                 print(f"{a} {ve}")

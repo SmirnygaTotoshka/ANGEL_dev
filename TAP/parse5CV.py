@@ -14,7 +14,8 @@ output - путь к таблице
 import pandas as pd
 import argparse
 from glob import glob
-from sklearn.metrics import roc_auc_score,average_precision_score
+import numpy as np
+from sklearn.metrics import *
 import re
 import os
 
@@ -94,7 +95,7 @@ else:
 
     results = glob(glob_path)
     models = group_by_folds(results,args.program)
-    result = pd.DataFrame(columns=["model", "level", "auc_roc", "ap"])
+    result = pd.DataFrame(columns=["model", "level", "auc_roc","J", "Sens","Spec","Acc","BA","ap", "MCC"])
     i = 0
     for k, folds in models.items():
         comps = re.split("_",k)
@@ -107,8 +108,18 @@ else:
         union = union.drop(columns=columns_to_drop)
         union = union.dropna()
         union = union.rename(columns={union.columns[0]: "activity"})
+        fpr, tpr, thres = roc_curve(union["activity"], union["1"])
+        J = tpr - fpr
+        Jopt = thres[np.argmax(J)]
+        union["pred"] = np.where(union["1"] < Jopt, 0, 1)
         auc_roc = roc_auc_score(union["activity"], union["1"])
         ap = average_precision_score(union["activity"], union["1"])
-        result.loc[i] = [model_name, level, auc_roc, ap]
+        tn, fp, fn, tp = confusion_matrix(union["activity"], union["pred"]).ravel()
+        sens = tp / (tp + fn)
+        spec = tn / (tn + fp)
+        acc = accuracy_score(union["activity"], union["pred"])
+        ba = balanced_accuracy_score(union["activity"], union["pred"])
+        mcc = matthews_corrcoef(union["activity"], union["pred"])
+        result.loc[i] = [model_name, level, auc_roc, Jopt, sens, spec, acc, ba, ap, mcc]
         i += 1
     result.to_excel(args.output, index = False)
