@@ -47,6 +47,8 @@ iedb_elution_filtered = iedb_elution_filtered.loc[:,["linear_peptide_seq","seque
 iedb_elution_filtered = iedb_elution_filtered.reset_index(drop = True)
 iedb_elution_filtered.to_csv("Proteasome/in_vivo/train/total_train_invivo.csv",sep = ";", index =False)
 print(f"Num substrate = {len(iedb_elution_filtered.sequence.unique())}")
+print(f"Num fragments = {len(iedb_elution_filtered.linear_peptide_seq.unique())}")
+
 # Выборки для 5CV
 
 fiveCV = GroupKFold(n_splits=5)
@@ -60,6 +62,19 @@ for i, (train_index, test_index) in enumerate(fiveCV.split(X = iedb_elution_filt
     ready_train_fold = getSamplesMulti(train_fold,number_threads = args.threads, w = args.window)
     print(f"Test {len(test_fold.sequence.unique())}")
     ready_test_fold = getSamplesMulti(test_fold,number_threads = args.threads, w = args.window)
+
+    ready_train_fold.drop_duplicates(inplace=True)
+    ready_test_fold.drop_duplicates(inplace=True)
+
+    # Удалить неоднозначные
+    ready_train_fold.drop_duplicates(subset=["peptide"],inplace=True)
+    ready_test_fold.drop_duplicates(subset=["peptide"],inplace=True)
+    # Удалить пересечение трейна и теста из теста
+    to_drop = []
+    for i in ready_test_fold.index:
+        if ready_train_fold["peptide"].str.contains(ready_test_fold.loc[i,"peptide"]):
+            to_drop.append(i)
+    ready_test_fold.drop(index = to_drop, inplace=True)
 
     train_fold.to_csv(f"Proteasome/in_vivo/train/train_invivo_{args.window}_{i}.csv", index=False, sep=";")
     test_fold.to_csv(f"Proteasome/in_vivo/train/test_invivo_{args.window}_{i}.csv", index=False, sep=";")

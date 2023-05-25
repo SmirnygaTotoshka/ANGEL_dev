@@ -64,6 +64,7 @@ train_invitro.reset_index(inplace=True,drop = True)
 
 train_invitro.to_csv(f"{path}/total_train_{name}.csv", index = False, sep = ";")
 print(f"Num substrate = {len(train_invitro.substrate.unique())}")
+print(f"Num fragments = {len(train_invitro.fragment.unique())}")
 
 fiveCV = GroupKFold(n_splits=5)
 for i, (train_index, test_index) in enumerate(fiveCV.split(X = train_invitro["fragment"],groups=train_invitro["substrate"])):
@@ -76,6 +77,19 @@ for i, (train_index, test_index) in enumerate(fiveCV.split(X = train_invitro["fr
     ready_train_fold = generateSamples(train_fold, window_radius=args.window)
     print(f"Test {len(train_invitro.loc[test_index,'substrate'].unique())}")
     ready_test_fold = generateSamples(test_fold, window_radius=args.window)
+
+    ready_train_fold.drop_duplicates(inplace=True)
+    ready_test_fold.drop_duplicates(inplace=True)
+
+    # Удалить неоднозначные
+    ready_train_fold.drop_duplicates(subset=["peptide"],inplace=True)
+    ready_test_fold.drop_duplicates(subset=["peptide"],inplace=True)
+    # Удалить пересечение трейна и теста из теста
+    to_drop = []
+    for i in ready_test_fold.index:
+        if ready_train_fold["peptide"].str.contains(ready_test_fold.loc[i,"peptide"]):
+            to_drop.append(i)
+    ready_test_fold.drop(index = to_drop, inplace=True)
 
     train_fold.to_csv(f"{path}/train_{name}_{args.window}_{i}.csv", index=False, sep=";")
     test_fold.to_csv(f"{path}/test_{name}_{args.window}_{i}.csv", index=False, sep=";")

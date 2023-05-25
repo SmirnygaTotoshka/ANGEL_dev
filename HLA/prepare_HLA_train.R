@@ -79,7 +79,7 @@ total.train = bind_rows(iedb.bind, flurry.bind, iedb.elution, flurry.elution) %>
   distinct(epitope, allele) %>% 
   rename("activity"="allele")
 
-vroom_write(total.train, "data/train/total_train_HLA.csv", delim = ";")
+vroom_write(total.train, "HLA/data/train/total_train_HLA.csv", delim = ";")
 
 set.seed(9)
 
@@ -92,4 +92,10 @@ for (i in folds) {
   k = k + 1
 }
 
+print(paste("Total peptides in train", length(unique(total.train$epitope))))
 print(paste("Total HLA alleles in train", length(unique(total.train$activity))))
+
+total.train %>%
+  group_by(activity) %>%
+  summarise(num_peptides = n()) %>%
+  vroom_write("HLA/data/results/train_stats.csv",delim = ";")
